@@ -5,7 +5,7 @@ import SearchScreen from '../screens/SearchScreen';
 import WatchListScreen from '../screens/WatchListScreen';
 
 export type BottomTabParams = {
-  Home: undefined;
+  HomeStackNavigator: undefined;
   Search: undefined;
   WatchList: undefined;
 };
@@ -15,9 +15,9 @@ const RootNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Home"
+        name="HomeStackNavigator"
         component={HomeStackNavigator}
-        options={{headerShown: false}}
+        options={{headerShown: false, title: 'Home'}}
       />
       <Tab.Screen name="Search" component={SearchScreen} />
       <Tab.Screen name="WatchList" component={WatchListScreen} />

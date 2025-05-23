@@ -1,6 +1,7 @@
 import axiosInstance from './axiosInstance';
 
 import {Movie, NowPlayingResponse} from '../types/apiResponses';
+import mapMovieFromApi from '../mappers/movieMapper';
 
 export const getNowPlayingMovies = async (): Promise<Movie[]> => {
   try {
@@ -8,7 +9,7 @@ export const getNowPlayingMovies = async (): Promise<Movie[]> => {
       '/now_playing',
     );
 
-    return response.data.results;
+    return response.data.results.map(mapMovieFromApi);
   } catch (error) {
     throw new Error('Error getting pokemons');
   }
