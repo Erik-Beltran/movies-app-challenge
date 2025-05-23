@@ -6,9 +6,11 @@ import {HomeStackParams} from '../navigation/HomeStackNavigator';
 
 interface Props {
   movie: Movie;
+  heigth?: number;
+  width?: number;
 }
 
-const MoviePoster = ({movie}: Props) => {
+const MoviePoster = ({movie, width = 200, heigth = 300}: Props) => {
   const navigation = useNavigation<NavigationProp<HomeStackParams>>();
   const {poster_path} = movie;
 
@@ -24,7 +26,10 @@ const MoviePoster = ({movie}: Props) => {
         opacity: pressed ? 0.9 : 1,
       })}>
       <View style={styles.imageContainer}>
-        <Image source={{uri: poster_path}} style={styles.image} />
+        <Image
+          source={{uri: poster_path}}
+          style={{...styles.image, width: width, height: heigth}}
+        />
       </View>
     </Pressable>
   );
@@ -35,9 +40,8 @@ export default MoviePoster;
 const styles = StyleSheet.create({
   image: {
     borderRadius: 18,
-    width: 200,
-    height: 300,
   },
+
   imageContainer: {
     flex: 1,
     borderRadius: 18,

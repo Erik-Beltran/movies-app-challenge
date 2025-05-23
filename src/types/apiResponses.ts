@@ -1,4 +1,4 @@
-export interface NowPlayingResponse {
+export interface PaginatedResponse {
   dates: Dates;
   page: number;
   results: Movie[];
