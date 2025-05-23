@@ -4,7 +4,12 @@ import HomeStackNavigator from './HomeStackNavigator';
 import SearchScreen from '../screens/SearchScreen';
 import WatchListScreen from '../screens/WatchListScreen';
 
-const Tab = createBottomTabNavigator();
+export type BottomTabParams = {
+  Home: undefined;
+  Search: undefined;
+  WatchList: undefined;
+};
+const Tab = createBottomTabNavigator<BottomTabParams>();
 
 const RootNavigator = () => {
   return (
