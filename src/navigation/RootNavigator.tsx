@@ -1,3 +1,5 @@
+import {ComponentProps} from 'react';
+import Icon from '@react-native-vector-icons/ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import HomeStackNavigator from './HomeStackNavigator';
@@ -9,18 +11,53 @@ export type BottomTabParams = {
   Search: undefined;
   WatchList: undefined;
 };
+type IconProps = ComponentProps<typeof Icon>;
+type IconName = IconProps['name'];
+
+type TabIconProps = {
+  color: string;
+  size: number;
+  focused: boolean;
+};
+
 const Tab = createBottomTabNavigator<BottomTabParams>();
 
+export const createTabIcon = (
+  iconNameOutline: IconName,
+  iconNameFilled: IconName,
+) => {
+  return ({color, size, focused}: TabIconProps) => {
+    const nameToUse = focused ? iconNameFilled : iconNameOutline;
+    return <Icon name={nameToUse} size={size} color={color} />;
+  };
+};
 const RootNavigator = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="HomeStackNavigator"
         component={HomeStackNavigator}
-        options={{headerShown: false, title: 'Home'}}
+        options={{
+          headerShown: false,
+          title: 'Home',
+          tabBarIcon: createTabIcon('home-outline', 'home'),
+        }}
       />
-      <Tab.Screen name="Search" component={SearchScreen} />
-      <Tab.Screen name="WatchList" component={WatchListScreen} />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          tabBarIcon: createTabIcon('search-outline', 'search'),
+        }}
+      />
+      <Tab.Screen
+        name="WatchList"
+        component={WatchListScreen}
+        options={{
+          tabBarIcon: createTabIcon('bookmark-outline', 'bookmark'),
+          title: 'Watch List',
+        }}
+      />
     </Tab.Navigator>
   );
 };
