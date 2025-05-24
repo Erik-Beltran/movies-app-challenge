@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 
-import {useInfiniteQuery} from '@tanstack/react-query';
+import {useInfiniteQuery, useQueryClient} from '@tanstack/react-query';
 import {useSearchStore} from '../store/useSearchSotre';
 import {getMovieCast, searchMovies} from '../services/movieApi';
 import {CastElement} from '../types/cast';
@@ -17,7 +17,9 @@ const validateTitle = (title: string, searchLetter: string) => {
   return title.toLowerCase().startsWith(searchLetter.toLowerCase());
 };
 
-export const useMoviesWithCast = (query: string) => {
+export const useSearchMovies = (query: string) => {
+  const queryClient = useQueryClient();
+
   const addMovies = useSearchStore(state => state.addMovies);
   const clearResult = useSearchStore(state => state.clearResult);
 
@@ -32,13 +34,25 @@ export const useMoviesWithCast = (query: string) => {
           movie => movie.genre_ids.length > 2,
         );
 
-        for (const movie of filteredMovies) {
-          const cast = await getMovieCast(movie.id);
+        const finalMovies: typeof movieData.results = [];
 
-          if (validateTitle(movie.title, query) && validateCast(cast)) {
-            addMovies(movie);
-          }
-        }
+        await Promise.all(
+          filteredMovies.map(async movie => {
+            try {
+              const cast = await queryClient.fetchQuery({
+                queryKey: ['movie_cast', movie.id],
+                queryFn: () => getMovieCast(movie.id),
+              });
+
+              if (validateTitle(movie.title, query) && validateCast(cast)) {
+                finalMovies.push(movie);
+              }
+            } catch (err) {
+              console.error(`Error loading cast for movie ${movie.id}`, err);
+            }
+          }),
+        );
+        finalMovies.forEach(addMovies);
 
         return movieData;
       },
