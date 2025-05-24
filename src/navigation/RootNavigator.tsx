@@ -22,10 +22,7 @@ type TabIconProps = {
 
 const Tab = createBottomTabNavigator<BottomTabParams>();
 
-export const createTabIcon = (
-  iconNameOutline: IconName,
-  iconNameFilled: IconName,
-) => {
+const createTabIcon = (iconNameOutline: IconName, iconNameFilled: IconName) => {
   return ({color, size, focused}: TabIconProps) => {
     const nameToUse = focused ? iconNameFilled : iconNameOutline;
     return <Icon name={nameToUse} size={size} color={color} />;
@@ -54,7 +51,7 @@ const RootNavigator = () => {
         name="WatchList"
         component={WatchListScreen}
         options={{
-          tabBarIcon: createTabIcon('bookmark-outline', 'bookmark'),
+          tabBarIcon: createTabIcon('film-outline', 'film'),
           title: 'Watch List',
         }}
       />

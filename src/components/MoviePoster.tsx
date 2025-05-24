@@ -1,8 +1,8 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 import {View, Image, StyleSheet, Pressable} from 'react-native';
-import {Movie} from '../types/apiResponses';
 import {HomeStackParams} from '../navigation/HomeStackNavigator';
+import {Movie} from '../types/movie';
 
 interface Props {
   movie: Movie;

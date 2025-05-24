@@ -1,6 +1,6 @@
 import {ScrollView, View} from 'react-native';
-import {Movie} from '../types/apiResponses';
 import MoviePoster from './MoviePoster';
+import {Movie} from '../types/movie';
 
 interface Props {
   movies: Movie[];

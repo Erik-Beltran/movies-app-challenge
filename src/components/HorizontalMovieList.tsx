@@ -35,7 +35,7 @@ const HorizontalMovielist = ({title, fetchFn, queryKey}: Props) => {
     return <ActivityIndicator size="large" />;
   }
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <FlatList
         horizontal
@@ -60,9 +60,13 @@ const HorizontalMovielist = ({title, fetchFn, queryKey}: Props) => {
 export default HorizontalMovielist;
 
 const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 8,
+  },
   title: {
     fontWeight: 'bold',
     fontSize: 24,
     marginBottom: 8,
+    color: 'white',
   },
 });
