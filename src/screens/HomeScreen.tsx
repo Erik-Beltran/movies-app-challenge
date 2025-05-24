@@ -25,17 +25,17 @@ const HomeScreen = () => {
       <HorizontalMovieList
         title="Popular"
         fetchFn={getPopularMovies}
-        queryKey={['popular', 'infinite']}
+        queryKey="popular"
       />
       <HorizontalMovieList
         title="Top Rated"
         fetchFn={getTopRatedMovies}
-        queryKey={['top_rated', 'infinite']}
+        queryKey="top_rated"
       />
       <HorizontalMovieList
         title="Upcoming"
         fetchFn={getUpcomingMovies}
-        queryKey={['upcoming', 'infinite']}
+        queryKey="upcoming"
       />
     </ScrollView>
   );

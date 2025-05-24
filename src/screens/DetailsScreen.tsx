@@ -46,7 +46,7 @@ const DetailsScreen = ({route}: Props) => {
       </View>
       <View style={styles.body}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>{movie?.original_title}</Text>
+          <Text style={styles.title}>{movie?.title}</Text>
           <Icon name="bookmark" color={'#714CF8'} size={30} />
         </View>
         <View>
@@ -146,11 +146,12 @@ const styles = StyleSheet.create({
   },
 
   textWhite: {
-    color: 'gray',
+    color: 'white',
     fontWeight: 'bold',
     fontSize: 14,
     rowGap: 4,
     flexDirection: 'row',
+    opacity: 0.9,
   },
 
   castContainer: {

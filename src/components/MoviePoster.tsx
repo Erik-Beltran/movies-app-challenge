@@ -1,6 +1,6 @@
+import {View, Image, StyleSheet, Pressable, Text} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
-import {View, Image, StyleSheet, Pressable} from 'react-native';
 import {HomeStackParams} from '../navigation/HomeStackNavigator';
 import {Movie} from '../types/movie';
 
@@ -8,11 +8,17 @@ interface Props {
   movie: Movie;
   heigth?: number;
   width?: number;
+  showTitle?: boolean;
 }
 
-const MoviePoster = ({movie, width = 200, heigth = 300}: Props) => {
+const MoviePoster = ({
+  movie,
+  width = 200,
+  heigth = 300,
+  showTitle = false,
+}: Props) => {
   const navigation = useNavigation<NavigationProp<HomeStackParams>>();
-  const {poster_path} = movie;
+  const {poster_path, title} = movie;
 
   const goToDetails = () => {
     navigation.navigate('Details', {movieId: movie.id});
@@ -24,6 +30,7 @@ const MoviePoster = ({movie, width = 200, heigth = 300}: Props) => {
         marginHorizontal: 10,
         paddingBottom: 20,
         opacity: pressed ? 0.9 : 1,
+        alignItems: 'center',
       })}>
       <View style={styles.imageContainer}>
         <Image
@@ -31,6 +38,11 @@ const MoviePoster = ({movie, width = 200, heigth = 300}: Props) => {
           style={{...styles.image, width: width, height: heigth}}
         />
       </View>
+      {showTitle && (
+        <Text numberOfLines={3} ellipsizeMode="tail" style={styles.title}>
+          {title}
+        </Text>
+      )}
     </Pressable>
   );
 };
@@ -54,5 +66,13 @@ const styles = StyleSheet.create({
     shadowRadius: 7,
 
     elevation: 9,
+  },
+  title: {
+    color: 'white',
+    fontSize: 14,
+    textAlign: 'center',
+    maxWidth: 100,
+    flex: 1,
+    fontWeight: 'bold',
   },
 });
