@@ -1,17 +1,12 @@
-import {
-  View,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
-import {useInfiniteQuery} from '@tanstack/react-query';
-import {PaginatedResponse} from '../types/apiResponses';
-import MoviePoster from './MoviePoster';
+import {View, Text, FlatList, StyleSheet, Pressable} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {HomeStackParams} from '../navigation/HomeStackNavigator';
+import {useInfiniteQuery} from '@tanstack/react-query';
 
+import MoviePoster from './MoviePoster';
+import Loader from './common/Loader';
+
+import {HomeStackParams} from '../navigation/HomeStackNavigator';
+import {PaginatedResponse} from '../types/apiResponses';
 interface Props {
   title: string;
   queryKey: string;
@@ -41,7 +36,7 @@ const HorizontalMovielist = ({title, fetchFn, queryKey}: Props) => {
   };
 
   if (isLoading) {
-    return <ActivityIndicator size="large" />;
+    return <Loader />;
   }
   return (
     <View style={styles.container}>

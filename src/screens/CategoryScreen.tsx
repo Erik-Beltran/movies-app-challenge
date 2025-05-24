@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-} from 'react-native';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
 import {useInfiniteQuery} from '@tanstack/react-query';
 import {StackScreenProps} from '@react-navigation/stack';
 
@@ -13,6 +7,7 @@ import {HomeStackParams} from '../navigation/HomeStackNavigator';
 
 import {PaginatedResponse} from '../types/apiResponses';
 import {CategoryKey, getCategoryConfig} from '../config/categories';
+import Loader from '../components/common/Loader';
 
 interface Props extends StackScreenProps<HomeStackParams, 'Category'> {}
 
@@ -38,7 +33,7 @@ const CategoryScreen = ({route}: Props) => {
   const movies = data?.pages.flatMap(page => page.results) ?? [];
 
   if (isLoading) {
-    return <ActivityIndicator size="large" />;
+    return <Loader />;
   }
 
   return (
