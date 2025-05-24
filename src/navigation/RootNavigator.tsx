@@ -1,13 +1,14 @@
 import {ComponentProps} from 'react';
 import Icon from '@react-native-vector-icons/ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NavigatorScreenParams} from '@react-navigation/native';
 
-import HomeStackNavigator from './HomeStackNavigator';
+import HomeStackNavigator, {HomeStackParams} from './HomeStackNavigator';
 import SearchScreen from '../screens/SearchScreen';
 import WatchListScreen from '../screens/WatchListScreen';
 
-export type BottomTabParams = {
-  HomeStackNavigator: undefined;
+export type RootSatckParams = {
+  HomeStackNavigator: NavigatorScreenParams<HomeStackParams>;
   Search: undefined;
   WatchList: undefined;
 };
@@ -20,7 +21,7 @@ type TabIconProps = {
   focused: boolean;
 };
 
-const Tab = createBottomTabNavigator<BottomTabParams>();
+const Tab = createBottomTabNavigator<RootSatckParams>();
 
 const createTabIcon = (iconNameOutline: IconName, iconNameFilled: IconName) => {
   return ({color, size, focused}: TabIconProps) => {

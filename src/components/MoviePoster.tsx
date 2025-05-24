@@ -1,8 +1,8 @@
 import {View, Image, StyleSheet, Pressable, Text} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
-import {HomeStackParams} from '../navigation/HomeStackNavigator';
 import {Movie} from '../types/movie';
+import {RootSatckParams} from '../navigation/RootNavigator';
 
 interface Props {
   movie: Movie;
@@ -17,12 +17,16 @@ const MoviePoster = ({
   heigth = 300,
   showTitle = false,
 }: Props) => {
-  const navigation = useNavigation<NavigationProp<HomeStackParams>>();
+  const navigation = useNavigation<NavigationProp<RootSatckParams>>();
   const {poster_path, title} = movie;
 
   const goToDetails = () => {
-    navigation.navigate('Details', {movieId: movie.id});
+    navigation.navigate('HomeStackNavigator', {
+      screen: 'Details',
+      params: {movieId: movie.id},
+    });
   };
+
   return (
     <Pressable
       onPress={goToDetails}
