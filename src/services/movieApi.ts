@@ -1,12 +1,14 @@
 import axiosInstance from './axiosInstance';
 
-import {Movie, PaginatedResponse} from '../types/apiResponses';
-import mapMovieFromApi from '../mappers/movieMapper';
+import {PaginatedResponse} from '../types/apiResponses';
+import {Movie, MovieDetails} from '../types/movie';
+import {mapMovieDetailsFromApi, mapMovieFromApi} from '../mappers/movieMapper';
+import {CastElement} from '../types/cast';
+import mapCastFromApi from '../mappers/castMapper';
 
 export const getNowPlayingMovies = async (): Promise<Movie[]> => {
   try {
     const response = await axiosInstance.get<PaginatedResponse>('/now_playing');
-    console.log('mappedMovies getNowPlayingMovies');
 
     return response.data.results.map(mapMovieFromApi);
   } catch (error) {
@@ -74,6 +76,27 @@ export const getUpcomingMovies = async (
       results: mappedMovies,
     };
   } catch (error) {
+    throw new Error('Error getting movies');
+  }
+};
+
+export const getMovieDetails = async (id: number): Promise<MovieDetails> => {
+  try {
+    const response = await axiosInstance.get<MovieDetails>(`/${id}`);
+    return mapMovieDetailsFromApi(response.data);
+  } catch (error) {
+    throw new Error('Error getting movies');
+  }
+};
+
+export const getMovieCast = async (id: number): Promise<CastElement[]> => {
+  try {
+    const response = await axiosInstance.get<{cast: CastElement[]}>(
+      `/${id}/credits`,
+    );
+    return response.data.cast.map(mapCastFromApi);
+  } catch (error) {
+    console.log('error', error);
     throw new Error('Error getting movies');
   }
 };
