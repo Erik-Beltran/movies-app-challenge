@@ -56,6 +56,7 @@ export default MoviePoster;
 const styles = StyleSheet.create({
   image: {
     borderRadius: 18,
+    resizeMode: 'contain',
   },
 
   imageContainer: {
