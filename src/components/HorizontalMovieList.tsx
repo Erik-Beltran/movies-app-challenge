@@ -53,7 +53,7 @@ const HorizontalMovielist = ({title, fetchFn, queryKey}: Props) => {
         data={movies}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
-          <MoviePoster movie={item} heigth={150} width={100} />
+          <MoviePoster movie={item} heigth={150} width={100} showTitle />
         )}
         onEndReachedThreshold={0.6}
         onEndReached={() => {
