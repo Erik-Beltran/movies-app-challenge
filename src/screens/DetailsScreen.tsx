@@ -44,11 +44,9 @@ const DetailsScreen = ({route}: Props) => {
     staleTime: 1000 * 60 * 60,
   });
 
-  console.log('isFavorite', isFavorite);
-
   if (!movie) {
     return null;
-  } // o puedes renderizar un mensaje
+  }
 
   return (
     <ScrollView>
