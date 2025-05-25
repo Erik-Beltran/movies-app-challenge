@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
-
 import {useInfiniteQuery, useQueryClient} from '@tanstack/react-query';
+
 import {useSearchStore} from '../store/useSearchSotre';
 import {getMovieCast, searchMovies} from '../services/movieApi';
 import {CastElement} from '../types/cast';
@@ -30,8 +30,8 @@ export const useSearchMovies = (query: string) => {
       queryFn: async ({pageParam = 1}) => {
         const movieData = await searchMovies(query, pageParam as number);
 
-        const filteredMovies = movieData.results.filter(
-          movie => movie.genre_ids.length > 2,
+        const filteredMovies = movieData.results.filter(movie =>
+          movie.genre_ids ? movie.genre_ids.length > 2 : false,
         );
 
         const finalMovies: typeof movieData.results = [];

@@ -23,14 +23,14 @@ export const useSearchStore = create(
       clearResult: () => set({results: []}),
 
       addMovies: (movie: Movie) => {
-        const currentMovies = get().results;
-        const existingItem = currentMovies.find(item => item.id === movie.id);
+        const {results} = get();
+        const existingItem = results.find(item => item.id === movie.id);
 
         if (existingItem) {
           return;
         }
         set({
-          results: [...get().results, movie],
+          results: [...results, movie],
         });
       },
     }),

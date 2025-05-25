@@ -5,27 +5,32 @@ import {
   Image,
   useWindowDimensions,
   FlatList,
+  Text,
 } from 'react-native';
+import Icon from '@react-native-vector-icons/ionicons';
 
 import {StackScreenProps} from '@react-navigation/stack';
 import {HomeStackParams} from '../navigation/HomeStackNavigator';
 import {useQuery} from '@tanstack/react-query';
 import {getMovieCast, getMovieDetails} from '../services/movieApi';
-import {Text} from 'react-native-gesture-handler';
-import Icon from '@react-native-vector-icons/ionicons';
+
+import Chip from '../components/Chip';
+import ActorCard from '../components/ActorCard';
+
 import {
   formatRuntime,
   getYearFromDate,
   roundToOneDecimal,
 } from '../utils/helpers/formatters';
-import Chip from '../components/Chip';
-import ActorCard from '../components/ActorCard';
+import {useFavoritesStore} from '../store/useFavoritesStore';
 
 interface Props extends StackScreenProps<HomeStackParams, 'Details'> {}
 
 const DetailsScreen = ({route}: Props) => {
   const {movieId} = route.params;
   const {height: screenHeight} = useWindowDimensions();
+  const isFavorite = useFavoritesStore(state => state.isFavorite(movieId));
+  const toggleFavorite = useFavoritesStore(state => state.toggleFavorite);
 
   const {data: movie} = useQuery({
     queryKey: ['movie', movieId],
@@ -39,6 +44,12 @@ const DetailsScreen = ({route}: Props) => {
     staleTime: 1000 * 60 * 60,
   });
 
+  console.log('isFavorite', isFavorite);
+
+  if (!movie) {
+    return null;
+  } // o puedes renderizar un mensaje
+
   return (
     <ScrollView>
       <View style={{...styles.imageContainer, height: screenHeight * 0.6}}>
@@ -47,7 +58,12 @@ const DetailsScreen = ({route}: Props) => {
       <View style={styles.body}>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{movie?.title}</Text>
-          <Icon name="bookmark" color={'#714CF8'} size={30} />
+          <Icon
+            onPress={() => toggleFavorite(movie)}
+            name={isFavorite ? 'bookmark' : 'bookmark-outline'}
+            color={'#714CF8'}
+            size={30}
+          />
         </View>
         <View>
           <View style={styles.row}>

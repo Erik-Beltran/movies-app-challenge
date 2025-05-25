@@ -53,7 +53,9 @@ const SearchScreen = () => {
 
       {query !== '' && results.length === 0 ? (
         <View style={styles.noFoundContainer}>
-          <Text style={styles.noFoundLabel}>No movies found for "{query}"</Text>
+          <Text style={styles.noFoundMessage}>
+            No movies found for "{query}"
+          </Text>
         </View>
       ) : (
         <FlatList
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  noFoundLabel: {
+  noFoundMessage: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
