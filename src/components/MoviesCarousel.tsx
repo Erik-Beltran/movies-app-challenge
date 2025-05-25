@@ -31,7 +31,6 @@ const MoviesCarousel = ({movies}: Props) => {
         vertical={false}
         inactiveSlideScale={0.85}
         inactiveSlideOpacity={0.7}
-        useScrollView={true}
       />
     </View>
   );

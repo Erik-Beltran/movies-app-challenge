@@ -6,6 +6,7 @@ import {NavigatorScreenParams} from '@react-navigation/native';
 import HomeStackNavigator, {HomeStackParams} from './HomeStackNavigator';
 import SearchScreen from '../screens/SearchScreen';
 import WatchListScreen from '../screens/WatchListScreen';
+import defaultStackOptions from './stackOptions';
 
 export type RootSatckParams = {
   HomeStackNavigator: NavigatorScreenParams<HomeStackParams>;
@@ -29,9 +30,19 @@ const createTabIcon = (iconNameOutline: IconName, iconNameFilled: IconName) => {
     return <Icon name={nameToUse} size={size} color={color} />;
   };
 };
+
 const RootNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: 'black',
+          borderTopColor: 'transparent',
+        },
+        tabBarActiveTintColor: '#fff',
+        tabBarInactiveTintColor: '#aaa',
+        ...defaultStackOptions,
+      }}>
       <Tab.Screen
         name="HomeStackNavigator"
         component={HomeStackNavigator}
